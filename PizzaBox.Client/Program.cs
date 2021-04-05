@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 using PizzaBox.Domain.Models;
 using PizzaBox.Client.Singletons;
-using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client
 {
@@ -33,6 +32,7 @@ namespace PizzaBox.Client
       var order = new Order();
 
       Console.WriteLine("Welcome to PizzaBox");
+      DisplayStoreMenu();
 
       order.Customer = new Customer();
       order.Store = SelectStore();
