@@ -5,11 +5,11 @@ namespace PizzaBox.Domain.Models
   /// <summary>
   /// 
   /// </summary>
-  public class MeatPizza : APizza
+  public class CustomPizza : APizza
   {
-    public MeatPizza()
+    public CustomPizza()
     {
-      Name = "Meat Pizza";
+      Name = "Custom Pizza";
     }
     public override void AddToppings()
     {

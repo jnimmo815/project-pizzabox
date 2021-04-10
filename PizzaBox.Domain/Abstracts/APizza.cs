@@ -8,6 +8,8 @@ namespace PizzaBox.Domain.Abstracts
   /// </summary>
   public abstract class APizza
   {
+
+    public string Name { get; set; }
     public Crust Crust { get; set; }
     public Size Size { get; set; }
     public List<Topping> Toppings { get; set; }
@@ -37,5 +39,11 @@ namespace PizzaBox.Domain.Abstracts
     }
 
     public abstract void AddToppings();
+
+    public override string ToString()
+    {
+      return $"{Name}";
+    }
   }
+
 }

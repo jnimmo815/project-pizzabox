@@ -81,12 +81,20 @@ namespace PizzaBox.Client
     /// <returns></returns>
     private static APizza SelectPizza()
     {
-      var input = int.Parse(Console.ReadLine());
-      var pizza = _pizzaSingleton.Pizzas[input - 1];
+      int result;
+      var input = int.TryParse(Console.ReadLine(), out result);
+      if (result < 1)
+      {
+        System.Console.WriteLine("Your choice is invailid!");
+        return null;
+      }
+      else
+      {
+        var pizza = _pizzaSingleton.Pizzas[result - 1];
+        DisplayOrder(pizza);
+        return pizza;
+      }
 
-      DisplayOrder(pizza);
-
-      return pizza;
     }
 
     /// <summary>
@@ -95,11 +103,20 @@ namespace PizzaBox.Client
     /// <returns></returns>
     private static AStore SelectStore()
     {
-      var input = int.Parse(Console.ReadLine()); // be careful (think execpetion/error handling)
+      int result;
+      var input = int.TryParse(Console.ReadLine(), out result); // be careful (think execpetion/error handling)
 
-      DisplayPizzaMenu();
+      if (result < 1)
+      {
+        System.Console.WriteLine("Your choice is invailid!");
+        return null;
+      }
+      else
+      {
+        DisplayPizzaMenu();
+        return _storeSingleton.Stores[result - 1];
+      }
 
-      return _storeSingleton.Stores[input - 1];
     }
   }
 }
