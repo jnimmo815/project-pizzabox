@@ -1,4 +1,6 @@
 ﻿using System;
+using PizzaBoxData.Entities;
+using System.Linq;
 using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 using PizzaBox.Domain.Models;
@@ -20,7 +22,20 @@ namespace PizzaBox.Client
     /// <param name="args"></param>
     private static void Main(string[] args)
     {
-      Run();
+      Console.WriteLine("Fetching Super Hero");
+      var superHeroes = GetSuperHeroes();
+      foreach (var superHero in superHeroes)
+      {
+        Console.WriteLine($"{superHero.Id} {superHero.RealName} {superHero.Alias}");
+      }
+      // Run();
+    }
+
+    static List<SuperHero> GetSuperHeroes()
+    {
+      HeroContext context = new HeroContext();
+      var superHeroes = context.SuperHeroes.ToList();
+      return superHeroes;
     }
 
     /// <summary>
@@ -29,16 +44,16 @@ namespace PizzaBox.Client
     private static void Run()
     {
 
-      var order = new Order();
+      //var order = new Order();
 
       Console.WriteLine("Welcome to PizzaBox");
       DisplayStoreMenu();
 
-      order.Customer = new Customer();
-      order.Store = SelectStore();
-      order.Pizza = SelectPizza();
+      //order.Customer = new Customer();
+      // order.Store = SelectStore();
+      // order.Pizza = SelectPizza();
 
-      order.Save();
+      // order.Save();
     }
 
     /// <summary>

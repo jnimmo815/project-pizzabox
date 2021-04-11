@@ -3,6 +3,11 @@
   <ItemGroup>
     <ProjectReference Include="..\PizzaBox.Domain\PizzaBox.Domain.csproj" />
     <ProjectReference Include="..\PizzaBox.Storing\PizzaBox.Storing.csproj" />
+    <ProjectReference Include="..\PizzaBoxData\PizzaBoxData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SQLServer" Version="5.0.5" />
   </ItemGroup>
 
   <PropertyGroup>
