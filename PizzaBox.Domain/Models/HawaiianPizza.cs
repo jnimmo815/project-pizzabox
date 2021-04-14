@@ -10,6 +10,7 @@ namespace PizzaBox.Domain.Models
     public HawaiianPizza()
     {
       Name = "Hawaiian Pizza";
+      //double price = 5.00;
     }
     public override void AddToppings()
     {

@@ -17,14 +17,18 @@ namespace PizzaBoxData.Entities
     {
     }
 
-    public virtual DbSet<SuperHero> SuperHeroes { get; set; }
+    public virtual DbSet<CrustInfo> CrustInfos { get; set; }
+    public virtual DbSet<MyOrder> MyOrders { get; set; }
+    public virtual DbSet<OrderInfo2> OrderInfo2s { get; set; }
+    public virtual DbSet<OrderInfo3> OrderInfo3s { get; set; }
+    public virtual DbSet<SizeInfo> SizeInfos { get; set; }
+    public virtual DbSet<ToppingInfo> ToppingInfos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       if (!optionsBuilder.IsConfigured)
       {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        optionsBuilder.UseSqlServer("Server=tcp:revature-training-james.database.windows.net,1433;Initial Catalog=Hero;Persist Security Info=False;User ID=james.nimmo;Password=Fligh=137;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30");
+
       }
     }
 
@@ -32,25 +36,176 @@ namespace PizzaBoxData.Entities
     {
       modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-      modelBuilder.Entity<SuperHero>(entity =>
+      modelBuilder.Entity<CrustInfo>(entity =>
       {
-        entity.ToTable("SuperHero");
+        entity.HasKey(e => e.CrustId);
 
-        entity.Property(e => e.Id)
-                  .HasColumnType("numeric(18, 0)")
-                  .ValueGeneratedOnAdd()
-                  .HasColumnName("id");
+        entity.ToTable("CrustInfo");
 
-        entity.Property(e => e.Alias)
+        entity.Property(e => e.CrustName)
                   .IsRequired()
                   .HasMaxLength(50)
                   .IsUnicode(false);
 
-        entity.Property(e => e.HideOut)
+        entity.Property(e => e.CrustPrice).HasColumnType("decimal(7, 2)");
+      });
+
+
+      modelBuilder.Entity<MyOrder>(entity =>
+      {
+        entity.HasNoKey();
+
+        entity.ToView("MyOrder");
+
+        entity.Property(e => e.CrustName)
+                  .IsRequired()
                   .HasMaxLength(50)
                   .IsUnicode(false);
 
-        entity.Property(e => e.RealName)
+        entity.Property(e => e.CrustPrice).HasColumnType("decimal(7, 2)");
+
+        entity.Property(e => e.OrderTime).HasColumnType("datetime");
+
+        entity.Property(e => e.PizzaName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.SizeName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.SizePrice).HasColumnType("decimal(7, 2)");
+
+        entity.Property(e => e.StoreName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.UserName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+      });
+
+      modelBuilder.Entity<OrderInfo2>(entity =>
+      {
+        entity.ToTable("OrderInfo2");
+
+        entity.Property(e => e.Id).ValueGeneratedNever();
+
+        entity.Property(e => e.PizzaName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.StroreName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.UserName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.HasOne(d => d.CrustTypeNavigation)
+                  .WithMany(p => p.OrderInfo2s)
+                  .HasForeignKey(d => d.CrustType)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK__OrderInfo__Crust__0F624AF8");
+
+        entity.HasOne(d => d.SizeTypeNavigation)
+                  .WithMany(p => p.OrderInfo2s)
+                  .HasForeignKey(d => d.SizeType)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK__OrderInfo__SizeT__10566F31");
+
+        entity.HasOne(d => d.Top1Navigation)
+                  .WithMany(p => p.OrderInfo2Top1Navigations)
+                  .HasForeignKey(d => d.Top1)
+                  .HasConstraintName("FK__OrderInfo2__Top1__114A936A");
+
+        entity.HasOne(d => d.Top2Navigation)
+                  .WithMany(p => p.OrderInfo2Top2Navigations)
+                  .HasForeignKey(d => d.Top2)
+                  .HasConstraintName("FK__OrderInfo2__Top2__123EB7A3");
+
+        entity.HasOne(d => d.Top3Navigation)
+                  .WithMany(p => p.OrderInfo2Top3Navigations)
+                  .HasForeignKey(d => d.Top3)
+                  .HasConstraintName("FK__OrderInfo2__Top3__1332DBDC");
+
+        entity.HasOne(d => d.Top4Navigation)
+                  .WithMany(p => p.OrderInfo2Top4Navigations)
+                  .HasForeignKey(d => d.Top4)
+                  .HasConstraintName("FK__OrderInfo2__Top4__14270015");
+
+        entity.HasOne(d => d.Top5Navigation)
+                  .WithMany(p => p.OrderInfo2Top5Navigations)
+                  .HasForeignKey(d => d.Top5)
+                  .HasConstraintName("FK__OrderInfo2__Top5__151B244E");
+      });
+
+      modelBuilder.Entity<OrderInfo3>(entity =>
+      {
+        entity.ToTable("OrderInfo3");
+
+        entity.Property(e => e.OrderTime).HasColumnType("datetime");
+
+        entity.Property(e => e.PizzaName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.StoreName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.UserName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.HasOne(d => d.CrustTypeNavigation)
+                  .WithMany(p => p.OrderInfo3s)
+                  .HasForeignKey(d => d.CrustType)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK__OrderInfo__Crust__1BC821DD");
+
+        entity.HasOne(d => d.SizeTypeNavigation)
+                  .WithMany(p => p.OrderInfo3s)
+                  .HasForeignKey(d => d.SizeType)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK__OrderInfo__SizeT__1CBC4616");
+      });
+
+      modelBuilder.Entity<SizeInfo>(entity =>
+      {
+        entity.HasKey(e => e.SizeId)
+                  .HasName("PK_Size");
+
+        entity.ToTable("SizeInfo");
+
+        entity.Property(e => e.SizeName)
+                  .IsRequired()
+                  .HasMaxLength(50)
+                  .IsUnicode(false);
+
+        entity.Property(e => e.SizePrice).HasColumnType("decimal(7, 2)");
+      });
+
+
+      modelBuilder.Entity<ToppingInfo>(entity =>
+      {
+        entity.HasKey(e => e.ToppingId);
+
+        entity.ToTable("ToppingInfo");
+
+        entity.Property(e => e.ToppingName)
+                  .IsRequired()
                   .HasMaxLength(50)
                   .IsUnicode(false);
       });

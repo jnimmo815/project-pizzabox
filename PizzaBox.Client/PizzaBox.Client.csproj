@@ -4,6 +4,7 @@
     <ProjectReference Include="..\PizzaBox.Domain\PizzaBox.Domain.csproj" />
     <ProjectReference Include="..\PizzaBox.Storing\PizzaBox.Storing.csproj" />
     <ProjectReference Include="..\PizzaBoxData\PizzaBoxData.csproj" />
+    <ProjectReference Include="..\PizzaBoxLib\PizzaBoxLib.csproj" />
   </ItemGroup>
 
   <ItemGroup>
